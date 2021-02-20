@@ -1,0 +1,13 @@
+E:\GeekBrains\2\6\6\bin\Debug\netcoreapp3.1\6.exe
+E:\GeekBrains\2\6\6\bin\Debug\netcoreapp3.1\6.deps.json
+E:\GeekBrains\2\6\6\bin\Debug\netcoreapp3.1\6.runtimeconfig.json
+E:\GeekBrains\2\6\6\bin\Debug\netcoreapp3.1\6.runtimeconfig.dev.json
+E:\GeekBrains\2\6\6\bin\Debug\netcoreapp3.1\6.dll
+E:\GeekBrains\2\6\6\bin\Debug\netcoreapp3.1\6.pdb
+E:\GeekBrains\2\6\6\obj\Debug\netcoreapp3.1\6.csprojAssemblyReference.cache
+E:\GeekBrains\2\6\6\obj\Debug\netcoreapp3.1\6.AssemblyInfoInputs.cache
+E:\GeekBrains\2\6\6\obj\Debug\netcoreapp3.1\6.AssemblyInfo.cs
+E:\GeekBrains\2\6\6\obj\Debug\netcoreapp3.1\6.csproj.CoreCompileInputs.cache
+E:\GeekBrains\2\6\6\obj\Debug\netcoreapp3.1\6.dll
+E:\GeekBrains\2\6\6\obj\Debug\netcoreapp3.1\6.pdb
+E:\GeekBrains\2\6\6\obj\Debug\netcoreapp3.1\6.genruntimeconfig.cache
