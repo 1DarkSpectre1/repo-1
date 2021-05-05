@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace metrica_collection_agent
+namespace metricaCollectionAgent
 {
     public class Startup
     {

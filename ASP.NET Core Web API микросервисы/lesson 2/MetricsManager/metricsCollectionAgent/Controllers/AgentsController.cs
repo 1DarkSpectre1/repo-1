@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace metrica_collection_agent.Controllers
+namespace metricaCollectionAgent.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

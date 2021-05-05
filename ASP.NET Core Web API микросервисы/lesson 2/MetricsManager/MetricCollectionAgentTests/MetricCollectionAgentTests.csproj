@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\metrica collection agent\MetricCollectionAgent.csproj" />
+    <ProjectReference Include="..\MetricsCollectionAgent\MetricCollectionAgent.csproj" />
   </ItemGroup>
 
 </Project>
