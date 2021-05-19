@@ -1,4 +1,5 @@
-﻿using MetricsAgent.DAL;
+﻿using AutoMapper;
+using MetricsAgent.DAL;
 using MetricsAgent.Entities;
 using MetricsAgent.Requests;
 using MetricsAgent.Responses;
@@ -20,10 +21,13 @@ namespace MetricsAgent.Controllers
 
         private ICpuMetricsRepository _repository;
 
-        public CpuMetricsAgentController(ILogger<CpuMetricsAgentController> logger,ICpuMetricsRepository repository)
+        private readonly IMapper _mapper;
+
+        public CpuMetricsAgentController(IMapper mapper,ILogger<CpuMetricsAgentController> logger,ICpuMetricsRepository repository)
         {
             _logger = logger;
             _repository = repository;
+            _mapper = mapper;
             _logger.LogDebug(1, "NLog встроен в CpuMetricsAgentController");
         }
 
@@ -51,7 +55,7 @@ namespace MetricsAgent.Controllers
 
             foreach (var metric in metrics)
             {
-                response.Metrics.Add(new MetricDto { Time = metric.Time, Value = metric.Value, Id = metric.Id });
+                response.Metrics.Add(_mapper.Map<MetricDto>(metric));
             }
 
             return Ok(response);
@@ -61,7 +65,8 @@ namespace MetricsAgent.Controllers
         public IActionResult GetMetricsFromAgent([FromRoute] DateTimeOffset fromTime, [FromRoute] DateTimeOffset toTime)
         {
             _logger.LogInformation("Запущен GetMetricsFromAgent в CpuMetricsAgentController.В него были переданы параметры fromTime:{0} и toTime:{1}", fromTime, toTime);
-            var metrics = _repository.GetByTimeSpan(fromTime, toTime);
+         
+            var metrics = _repository.GetAll();
 
             var response = new MetricsResponse()
             {
@@ -70,7 +75,7 @@ namespace MetricsAgent.Controllers
 
             foreach (var metric in metrics)
             {
-                response.Metrics.Add(new MetricDto { Time = metric.Time, Value = metric.Value, Id = metric.Id });
+                response.Metrics.Add(_mapper.Map<MetricDto>(metric));
             }
             return Ok(response);
         }

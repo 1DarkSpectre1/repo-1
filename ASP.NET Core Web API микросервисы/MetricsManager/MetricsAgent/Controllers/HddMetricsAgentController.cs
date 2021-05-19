@@ -1,4 +1,5 @@
-﻿using MetricsAgent.DAL;
+﻿using AutoMapper;
+using MetricsAgent.DAL;
 using MetricsAgent.Entities;
 using MetricsAgent.Requests;
 using MetricsAgent.Responses;
@@ -20,8 +21,11 @@ namespace MetricsAgent.Controllers
 
         private IHddMetricsRepository _repository;
 
-        public HddMetricsAgentController(ILogger<HddMetricsAgentController> logger, IHddMetricsRepository repository)
+        private readonly IMapper _mapper;
+
+        public HddMetricsAgentController(IMapper mapper, ILogger<HddMetricsAgentController> logger, IHddMetricsRepository repository)
         {
+            _mapper = mapper;
             _logger = logger;
             _repository = repository;
             _logger.LogDebug(1, "NLog встроен в HddMetricsAgentController");
@@ -50,7 +54,7 @@ namespace MetricsAgent.Controllers
 
             foreach (var metric in metrics)
             {
-                response.Metrics.Add(new MetricDto { Time = metric.Time, Value = metric.Value, Id = metric.Id });
+                response.Metrics.Add(_mapper.Map<MetricDto>(metric));
             }
 
             return Ok(response);
@@ -60,7 +64,7 @@ namespace MetricsAgent.Controllers
         public IActionResult GetMetricsFromAgent([FromRoute] DateTimeOffset fromTime, [FromRoute] DateTimeOffset toTime)
         {
             _logger.LogInformation("Запущен GetMetricsFromAgent в HddMetricsAgentController.В него были переданы параметры fromTime:{0} и toTime:{1}", fromTime, toTime);
-            var metrics = _repository.GetByTimeSpan(fromTime, toTime);
+            var metrics = _repository.GetAll();
 
             var response = new MetricsResponse()
             {
@@ -69,7 +73,7 @@ namespace MetricsAgent.Controllers
 
             foreach (var metric in metrics)
             {
-                response.Metrics.Add(new MetricDto { Time = metric.Time, Value = metric.Value, Id = metric.Id });
+                response.Metrics.Add(_mapper.Map<MetricDto>(metric));
             }
             return Ok(response);
         }
