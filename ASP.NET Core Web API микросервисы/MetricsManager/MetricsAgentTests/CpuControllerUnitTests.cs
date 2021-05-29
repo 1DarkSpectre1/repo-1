@@ -1,3 +1,4 @@
+using AutoMapper;
 using MetricsAgent.Controllers;
 using MetricsAgent.DAL;
 using MetricsAgent.Entities;
@@ -13,11 +14,13 @@ namespace MetricsAgentTests
         private CpuMetricsAgentController controller;
         private Mock<ICpuMetricsRepository> mock;
         private Mock<ILogger<CpuMetricsAgentController>> _logger;
+        private Mock<IMapper> _mapper;
         public CpuMetricsAgentControllerUnitTests()
         {
             mock = new Mock<ICpuMetricsRepository>();
             _logger = new Mock<ILogger<CpuMetricsAgentController>>();
-            controller = new CpuMetricsAgentController(_logger.Object, mock.Object);
+            _mapper = new Mock<IMapper>();
+            controller = new CpuMetricsAgentController(_mapper.Object, _logger.Object, mock.Object);
         }
 
         [Fact]
