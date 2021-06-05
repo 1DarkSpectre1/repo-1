@@ -36,7 +36,7 @@ namespace MetricsAgent.Controllers
         {
             _repository.Create(new CpuMetric
             {
-                Time = request.Time,
+                Time = request.Time.ToUnixTimeSeconds(),
                 Value = request.Value
             });
 
@@ -66,17 +66,13 @@ namespace MetricsAgent.Controllers
         {
             _logger.LogInformation("Запущен GetMetricsFromAgent в CpuMetricsAgentController.В него были переданы параметры fromTime:{0} и toTime:{1}", fromTime, toTime);
          
-            var metrics = _repository.GetAll();
+            var metrics = _repository.GetByTimeSpan(fromTime, toTime);
 
             var response = new MetricsResponse()
             {
                 Metrics = new List<MetricDto>()
             };
-
-            foreach (var metric in metrics)
-            {
-                response.Metrics.Add(_mapper.Map<MetricDto>(metric));
-            }
+            response.Metrics = metrics.Select(metric => _mapper.Map<MetricDto>(metric)).ToList();
             return Ok(response);
         }
 

@@ -35,7 +35,7 @@ namespace MetricsAgent.Controllers
         {
             _repository.Create(new RamMetric
             {
-                Time = request.Time,
+                Time = request.Time.ToUnixTimeSeconds(),
                 Value = request.Value
             });
 

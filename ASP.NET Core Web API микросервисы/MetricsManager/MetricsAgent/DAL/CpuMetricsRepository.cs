@@ -58,7 +58,7 @@ namespace MetricsAgent.DAL
                     new
                     {
                         value = item.Value,
-                        time = item.Time.ToUnixTimeSeconds()
+                        time = item.Time
                     });
 
             }
