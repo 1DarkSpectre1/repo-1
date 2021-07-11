@@ -8,8 +8,6 @@ namespace GetAsync
 {
     class Program
     {
-
-    
         static string filename = "result.txt";
         static async Task Main(string[] args)
         {
@@ -17,7 +15,7 @@ namespace GetAsync
             Console.WriteLine("Привет для начала нажмите Enter!");
             Console.ReadLine();
             File.WriteAllText(filename, "");
-            for (int i = 1; i < 11; i++)
+            for (int i = 4; i < 14; i++)
             {
                 await GetAndWrite(i);
             }
@@ -26,24 +24,19 @@ namespace GetAsync
         static readonly HttpClient client = new HttpClient();
         static async Task GetAndWrite(int id)
         {
-           
-                try
+            String strText; 
+            try
                 {
                     string url = string.Format("https://jsonplaceholder.typicode.com/posts/{0}", id);
                     HttpResponseMessage response = await client.GetAsync(url);
                     response.EnsureSuccessStatusCode();
                     string responseBody = await response.Content.ReadAsStringAsync();
                     Post post = JsonSerializer.Deserialize<Post>(responseBody);
-                    File.AppendAllText(filename,Convert.ToString( post.userId));
-                    File.AppendAllText(filename, Environment.NewLine);
-                    File.AppendAllText(filename, Convert.ToString(post.id));
-                    File.AppendAllText(filename, Environment.NewLine);
-                    File.AppendAllText(filename, Convert.ToString(post.title));
-                    File.AppendAllText(filename, Environment.NewLine);
-                    File.AppendAllText(filename, Convert.ToString(post.body));
-                    File.AppendAllText(filename, Environment.NewLine);
-                    File.AppendAllText(filename, Environment.NewLine);
-
+                    strText = Convert.ToString(post.userId) + "\n\n" + Convert.ToString(post.id) + "\n\n" + Convert.ToString(post.title) + "\n\n" + Convert.ToString(post.body) + "\n\n";
+                    await using (StreamWriter sw = new StreamWriter(filename, true, System.Text.Encoding.Default))
+                    {
+                        sw.WriteLine(strText);
+                    }
                 }
                 catch (HttpRequestException e)
                 {
