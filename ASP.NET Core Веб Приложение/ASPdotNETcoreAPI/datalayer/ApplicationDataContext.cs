@@ -11,5 +11,6 @@ namespace datalayer
         }
 
         public DbSet<Posts> Posts { get; set; }
+        public DbSet<Person> Persons { get; set; }
     }
 }

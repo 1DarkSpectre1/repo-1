@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\businesslogic\businesslogic.csproj" />
     <ProjectReference Include="..\datalayer\datalayer.csproj" />
   </ItemGroup>
 
